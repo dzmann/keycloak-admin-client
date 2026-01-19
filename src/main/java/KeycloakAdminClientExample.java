@@ -19,11 +19,11 @@ public class KeycloakAdminClientExample {
 
     public static void main(String[] args) throws JsonProcessingException {
 
-        String serverUrl = "http://localhost:8080/auth/";
-        String realm = "demo";
+        String serverUrl = "http://localhost:8080";
+        String realm = "test";
         // idm-client needs to allow "Direct Access Grants: Resource Owner Password Credentials Grant"
-        String clientId = "study-keycloak";
-        String clientSecret = "admin";
+        String clientId = "testkeycloak";
+        String clientSecret = "MD1RKJrZdLvpqT6er2RfGBdUYe7YREPF";
         ObjectMapper mapper = new ObjectMapper();
 
 //		// Client "idm-client" needs service-account with at least "manage-users, view-clients, view-realm, view-users" roles for "realm-management"
@@ -38,11 +38,9 @@ public class KeycloakAdminClientExample {
         Keycloak keycloak = KeycloakBuilder.builder() //
                 .serverUrl(serverUrl) //
                 .realm(realm) //
-                .grantType(OAuth2Constants.PASSWORD) //
+                .grantType(OAuth2Constants.CLIENT_CREDENTIALS) //
                 .clientId(clientId) //
                 .clientSecret(clientSecret) //
-                .username("danilo") //
-                .password("trinker")
                         .build();
 
 
@@ -56,7 +54,7 @@ public class KeycloakAdminClientExample {
         user.setFirstName("First");
         user.setLastName("Last");
         user.setEmail("tom+tester1@tdlabs.local");
-        user.setAttributes(Collections.singletonMap("origin", Arrays.asList("demo")));
+        user.setAttributes(Collections.singletonMap("origin", Arrays.asList("test")));
 
         // Get realm
         RealmResource realmResource = keycloak.realm(realm);
